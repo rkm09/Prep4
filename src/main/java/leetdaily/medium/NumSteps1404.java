@@ -6,7 +6,7 @@ public class NumSteps1404 {
         System.out.println(numSteps(s));
     }
     public static int numSteps(String s) {
-        
+
     }
 }
 
