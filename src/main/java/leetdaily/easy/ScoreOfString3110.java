@@ -6,6 +6,7 @@ public class ScoreOfString3110 {
         System.out.println(scoreOfString(s));
     }
 
+//    [def]; time: O(n), space: O(n)
     public static int scoreOfString(String s) {
         char[] arr = s.toCharArray();
         int score = 0;
