@@ -6,6 +6,15 @@ public class ScoreOfString3110 {
         System.out.println(scoreOfString(s));
     }
 
+//    linear iteration; time: O(n), space: O(1)
+    public static int scoreOfString1(String s) {
+        int score = 0, n = s.length();
+        for(int i = 1 ; i < n ; i++) {
+            score += Math.abs(s.charAt(i) - s.charAt(i - 1));
+        }
+        return score;
+    }
+
 //    [def]; time: O(n), space: O(n)
     public static int scoreOfString(String s) {
         char[] arr = s.toCharArray();
@@ -15,6 +24,7 @@ public class ScoreOfString3110 {
         }
         return score;
     }
+
 }
 
 /*
