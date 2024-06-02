@@ -6,7 +6,7 @@ public class ReverseString344 {
         reverseString(s);
     }
 
-//    2 pointer; time: O(n), space: O(1)
+//    2 pointer; time: O(n), space: O(1) [faster]
     public static void reverseString(char[] s) {
         int left = 0, right = s.length - 1;
         while(left < right) {
@@ -18,7 +18,7 @@ public class ReverseString344 {
 
 //    recursion; time: O(n), space: O(n)
     public static void reverseString1(char[] s) {
-        helper(s, 0, s.length);
+        helper(s, 0, s.length - 1);
     }
     private static void helper(char[] s, int left, int right) {
         if(left >= right) return;
