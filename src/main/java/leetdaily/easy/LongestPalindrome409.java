@@ -43,8 +43,8 @@ public class LongestPalindrome409 {
                 hasOddFrequency = true;
             }
         }
-        if(hasOddFrequency) return res + 1;
-        return res;
+
+        return hasOddFrequency ? res + 1 : res;
     }
 
 
