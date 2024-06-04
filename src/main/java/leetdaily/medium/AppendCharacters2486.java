@@ -8,7 +8,7 @@ public class AppendCharacters2486 {
 
 //    two pointer; time: O(n), space: O(1)
     public static int appendCharacters(String s, String t) {
-        
+        return 0;
     }
 }
 
