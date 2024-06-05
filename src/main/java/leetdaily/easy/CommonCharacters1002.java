@@ -10,7 +10,7 @@ public class CommonCharacters1002 {
         System.out.println(commonChars(words));
     }
 
-//    array and frequency intersection; time: O(n.k), space: O(1)
+//    array and frequency intersection; time: O(n.k), space: O(1) [n be the number of words, k be the average length of each word]
     public static List<String> commonChars(String[] words) {
         int[] commonCharCount = new int[26];
         int[] currentCharCount = new int[26];
@@ -34,7 +34,7 @@ public class CommonCharacters1002 {
             }
         }
 
-//        collect the common character count based on final counts
+//        collect the common character count based on the final counts
         for(int letter = 0 ; letter < 26 ; letter++) {
             for(int commonCount = 0 ; commonCount < commonCharCount[letter] ; commonCount++) {
                 result.add(String.valueOf((char)(letter + 'a')));
