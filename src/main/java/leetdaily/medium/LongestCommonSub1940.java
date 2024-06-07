@@ -1,7 +1,9 @@
 package leetdaily.medium;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LongestCommonSub1940 {
     public static void main(String[] args) {
@@ -9,9 +11,17 @@ public class LongestCommonSub1940 {
         System.out.println(longestCommonSubsequence(arrays));
     }
 
+//    hashmap; time: O(n.m), space: O(n.m) [n - length of the array, m - average length of arrays[i]]
     public static List<Integer> longestCommonSubsequence(int[][] arrays) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
         List<Integer> res = new ArrayList<>();
-
+        for(int[] array : arrays) {
+            for(int num : array) {
+                freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+                if(freqMap.get(num) == arrays.length)
+                    res.add(num);
+            }
+        }
         return res;
     }
 }
