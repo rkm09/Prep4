@@ -8,7 +8,7 @@ public class HeightChecker1051 {
         System.out.println(heightChecker(heights));
     }
 
-//    time: O(n), space: O(n)
+//    [def]; time: O(nlogn), space: O(n) [in built sort]
     public static int heightChecker(int[] heights) {
         int[] expected = heights.clone();
         Arrays.sort(expected);
