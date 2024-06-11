@@ -8,8 +8,24 @@ public class HeightChecker1051 {
         System.out.println(heightChecker(heights));
     }
 
-//    [def]; time: O(nlogn), space: O(n) [in built sort]
+//    using bubble sort; time: O(n^2), space: O(n)
     public static int heightChecker(int[] heights) {
+        int[] sortedHeights = heights.clone();
+        bubbleSort(sortedHeights);
+        int count = 0;
+        for(int i = 0 ; i < heights.length ; i++) {
+            if(heights[i] != sortedHeights[i])
+                count++;
+        }
+        return count;
+    }
+
+    private static void bubbleSort(int[] arr) {
+
+    }
+
+//    [def]; time: O(nlogn), space: O(n) [in built sort]
+    public static int heightCheckerN(int[] heights) {
         int[] expected = heights.clone();
         Arrays.sort(expected);
         int count = 0;
