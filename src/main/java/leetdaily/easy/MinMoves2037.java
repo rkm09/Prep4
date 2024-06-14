@@ -9,7 +9,7 @@ public class MinMoves2037 {
         System.out.println(minMovesToSeat(seats, students));
     }
 
-//    greedy; time: O(nlogn), space: O(n)
+//    greedy; time: O(nlogn), space: O(logn)
     public static int minMovesToSeat(int[] seats, int[] students) {
         Arrays.sort(seats);
         Arrays.sort(students);
@@ -18,6 +18,11 @@ public class MinMoves2037 {
             moves += Math.abs(seats[i] - students[i]);
         }
         return moves;
+    }
+
+//    counting sort; time: O(m + n), space: O(n)
+    public static int minMovesToSeat1(int[] seats, int[] students) {
+        return 0;
     }
 }
 
