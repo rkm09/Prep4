@@ -42,8 +42,8 @@ public class IPO502 {
             this.profit = profit;
         }
         @Override
-        public int compareTo(Project other) {
-            return capital - other.capital;
+        public int compareTo(Project project) {
+            return capital - project.capital;
         }
     }
 }
