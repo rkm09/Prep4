@@ -2,7 +2,29 @@ package leetdaily.medium;
 
 public class SumOfSquares633 {
     public static void main(String[] args) {
-        System.out.println(judgeSquareSum3(5));
+        System.out.println(judgeSquareSum(5));
+    }
+
+//    binary search; time: O(sqrt(c).logc), space: O(1)
+    public static boolean judgeSquareSum(int c) {
+        for(long a = 0 ; a * a <= c ; a++) {
+            int b = c - (int) (a * a);
+            if(binarySearch(0, b, b))
+                return true;
+        }
+        return false;
+    }
+
+    private static boolean binarySearch(long start, long end, int sqNum) {
+        if(start > end)
+            return false;
+        long mid = start + (end - start) / 2;
+        if(mid * mid == sqNum)
+            return true;
+        else if(mid * mid < sqNum)
+            return binarySearch(mid + 1, end, sqNum);
+        else
+            return binarySearch(start, mid - 1, sqNum);
     }
 
 //    sqrt function; time: O(sqrt(c).logc), space: O(1)
