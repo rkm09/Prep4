@@ -9,7 +9,7 @@ public class MostProfit826 {
     }
 
     public static int maxProfitAssignment(int[] difficulty, int[] profit, int[] worker) {
-        
+        return 0;
     }
 }
 
