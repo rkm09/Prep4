@@ -8,14 +8,7 @@ public class MaxSatisfied1052 {
     }
 
     public static int maxSatisfied(int[] customers, int[] grumpy, int minutes) {
-        int max = 0, j = 0, n = customers.length;
-        for(int i = 0 ; i < n ; i++) {
-            int sum = 0;
-            while(j < minutes && j < n) {
-                sum += customers[j++];
-            }
-            if(sum > max)
-        }
+        return 0;
     }
 }
 
