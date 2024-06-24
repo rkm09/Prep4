@@ -6,6 +6,7 @@ public class NiceSubArrays1248 {
         System.out.println(numberOfSubarrays(nums, 3));
     }
 
+//    to do
     public static int numberOfSubarrays(int[] nums, int k) {
         return 0;
     }
