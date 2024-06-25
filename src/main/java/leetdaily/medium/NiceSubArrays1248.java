@@ -8,6 +8,7 @@ public class NiceSubArrays1248 {
 
 //    to do
     public static int numberOfSubarrays(int[] nums, int k) {
+        
         return 0;
     }
 }
