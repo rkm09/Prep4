@@ -11,7 +11,7 @@ public class BalanceBST1382 {
     }
 
     public static TreeNode balanceBST(TreeNode root) {
-
+        return root;
     }
 }
 
