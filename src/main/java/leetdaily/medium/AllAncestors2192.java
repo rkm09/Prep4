@@ -1,5 +1,6 @@
 package leetdaily.medium;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllAncestors2192 {
@@ -10,7 +11,8 @@ public class AllAncestors2192 {
     }
 
     public static List<List<Integer>> getAncestors(int n, int[][] edges) {
-        
+        List<List<Integer>> res = new ArrayList<>();
+        return res;
     }
 }
 
