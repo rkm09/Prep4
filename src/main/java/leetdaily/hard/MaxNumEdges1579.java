@@ -8,7 +8,7 @@ public class MaxNumEdges1579 {
     }
 
     public int maxNumEdgesToRemove(int n, int[][] edges) {
-
+        return 0;
     }
 
     class UnionFind {
@@ -18,7 +18,7 @@ public class MaxNumEdges1579 {
             parent = new int[size];
             rank = new int[size];
         }
-        
+
     }
 }
 
