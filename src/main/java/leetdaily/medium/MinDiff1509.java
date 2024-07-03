@@ -11,8 +11,11 @@ public class MinDiff1509 {
 //    greedy & sorting; time: O(nlogn), space: O(logn)
     public static int minDifference(int[] nums) {
         int n = nums.length;
+//        if array has four or fewer elements then return 0
         if(n <= 4) return 0;
+//        sort the elements and consider the boundaries
         Arrays.sort(nums);
+//        four scenarios to compute
         int diff = Integer.MAX_VALUE;
         for(int left = 0, right = n - 4 ; right < n ; left++, right++) {
             diff = Math.min(diff, nums[right] - nums[left]);
