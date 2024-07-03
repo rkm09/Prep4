@@ -1,11 +1,11 @@
 package leetdaily.medium;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class MinDiff1509 {
     public static void main(String[] args) {
-        int[] nums = {5,3,2,4};
-        System.out.println(minDifference(nums));
+        int[] nums = {1,5,0,10,14};
+        System.out.println(minDifference1(nums));
     }
 
 //    greedy & sorting; time: O(nlogn), space: O(logn)
@@ -21,6 +21,35 @@ public class MinDiff1509 {
             diff = Math.min(diff, nums[right] - nums[left]);
         }
         return diff;
+    }
+
+//    partial sort and greedy deletion; time: O(n), space: O(1)
+    public static int minDifference1(int[] nums) {
+        if(nums.length <= 4) return 0;
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
+        for(int num : nums) {
+            maxHeap.offer(num);
+            if(maxHeap.size() > 4)
+                maxHeap.poll();
+        }
+        List<Integer> smallestFour = new ArrayList<>(maxHeap);
+        Collections.sort(smallestFour);
+
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for(int num : nums) {
+            minHeap.offer(num);
+            if(minHeap.size() > 4)
+                minHeap.poll();
+        }
+        List<Integer> largestFour = new ArrayList<>(minHeap);
+        Collections.sort(largestFour);
+
+        int minDiff = Integer.MAX_VALUE;
+        for(int i = 0 ; i < 4 ; i++){
+            minDiff = Math.min(minDiff, largestFour.get(i) - smallestFour.get(i));
+        }
+
+        return minDiff;
     }
 }
 
