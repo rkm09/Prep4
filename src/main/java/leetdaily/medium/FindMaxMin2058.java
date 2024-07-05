@@ -38,11 +38,10 @@ public class FindMaxMin2058 {
 //                if this is the first critical point found
                 if(firstCriticalIndex == 0) {
                     firstCriticalIndex = currentIndex;
-                    previousCriticalIndex = currentIndex;
                 } else {
                     minDiff = Math.min(minDiff, currentIndex - previousCriticalIndex);
-                    previousCriticalIndex = currentIndex;
                 }
+                previousCriticalIndex = currentIndex;
             }
             currentIndex++;
             prevNode = currentNode;
