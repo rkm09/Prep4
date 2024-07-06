@@ -9,25 +9,22 @@ public class EarliestAcq1101 {
         System.out.println(aq.earliestAcq(logs, 4));
     }
 
-//    union find; [def]; time: O(alpha(n)), space: O(n)
+//    union find; time: O(N + MlogM + Malpha(N)), space: O(N + logM)  [N - number of people, M - number of logs]
+//    sorting: MlogM, constructing union find: N, calling union: M * alpha(N)
     public int earliestAcq(int[][] logs, int n) {
 //        sort based on timestamp
         Arrays.sort(logs, Comparator.comparingInt(a -> a[0]));
 //        call union find
         UnionFind dsu = new UnionFind(n);
-        for(int[] time : logs) {
-            if(!dsu.isConnected(time[1], time[2])) {
-                dsu.union(time[1], time[2]);
+        int connections = n - 1;
+        for(int[] log : logs) {
+            int timestamp = log[0], friendA = log[1], friendB = log[2];
+            if(!dsu.isConnected(friendA, friendB)) {
+                connections--;
+                dsu.union(friendA, friendB);
+                if(connections == 0)
+                    return timestamp;
             }
-            int i = 1;
-            boolean isAcq = true;
-            while(i < n) {
-                if(!dsu.isConnected(i, i -1)) {
-                    isAcq = false;
-                }
-                i++;
-            }
-            if(isAcq) return time[0];
         }
         return -1;
     }
