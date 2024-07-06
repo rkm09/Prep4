@@ -21,6 +21,16 @@ public class PassThePillow2582 {
         }
         return position;
     }
+
+//    math; time: O(1), space: O(1)
+    public static int passThePillow1(int n, int time) {
+        int fullRounds = time / (n - 1);
+        int extraTime = time % (n - 1);
+        if(fullRounds % 2 == 0) {
+            return extraTime + 1;
+        } else
+            return n - extraTime;
+    }
 }
 
 
