@@ -5,7 +5,7 @@ public class WaterBottles1518 {
         System.out.println(numWaterBottles(15, 8));
     }
 
-//    simulation [def]; time: O(n), space: O(1)
+//    simulation [def]; time: O(log(baseM)N), space: O(1) [n - number of full bottles, m - the number of exchanges]
     public static int numWaterBottles(int numBottles, int numExchange) {
         if(numBottles < numExchange)
             return numBottles;
