@@ -9,13 +9,12 @@ public class WaitingTime1701 {
 //    simulation; time: O(n), space: O(1)
     public static double averageWaitingTime(int[][] customers) {
         double avgTime = 0.0;
-        int n = customers.length, time, prev = customers[0][0];
+        int n = customers.length, currTime, prevEnd = customers[0][0];
         for(int[] customer : customers) {
-            if(prev < customer[0])
-                prev = customer[0];
-            time = prev + customer[1];
-            avgTime += time - customer[0];
-            prev = time;
+            int arrival = customer[0], duration = customer[1];
+            currTime = Math.max(prevEnd, arrival) + duration;
+            avgTime += currTime - arrival;
+            prevEnd = currTime;
         }
         return avgTime / n;
     }
