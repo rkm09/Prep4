@@ -8,15 +8,16 @@ public class WaitingTime1701 {
 
 //    simulation; time: O(n), space: O(1)
     public static double averageWaitingTime(int[][] customers) {
-        double avgTime = 0.0;
-        int n = customers.length, currTime, prevEnd = customers[0][0];
-        for(int[] customer : customers) {
-            int arrival = customer[0], duration = customer[1];
-            currTime = Math.max(prevEnd, arrival) + duration;
-            avgTime += currTime - arrival;
-            prevEnd = currTime;
+        double netWaitTime = 0.0;
+        int n = customers.length, nextIdleTime = customers[0][0];
+        for(int[] interval : customers) {
+            if(interval[0] > nextIdleTime)
+                nextIdleTime = interval[0];
+//            ps: could be done with Math.max(nextIdleTime, interval[0]); but that takes 1s more
+            nextIdleTime = nextIdleTime + interval[1];
+            netWaitTime += nextIdleTime - interval[0];
         }
-        return avgTime / n;
+        return netWaitTime / n;
     }
 }
 
