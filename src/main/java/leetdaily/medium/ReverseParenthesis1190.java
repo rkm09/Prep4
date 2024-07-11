@@ -9,6 +9,7 @@ public class ReverseParenthesis1190 {
         System.out.println(reverseParentheses(s));
     }
 
+    //    simulation using stack ; time: O(n^2), space: O(n)
     public static String reverseParentheses(String s) {
         Deque<String> stack = new ArrayDeque<>();
         for(char c : s.toCharArray()) {
