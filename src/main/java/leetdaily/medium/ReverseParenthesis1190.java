@@ -30,7 +30,7 @@ public class ReverseParenthesis1190 {
         while(!stack.isEmpty())
             sb.append(stack.pop());
 
-        return sb.reverse().toString();
+        return reverse(sb.toString());
     }
 
     private static String reverse(String str) {
