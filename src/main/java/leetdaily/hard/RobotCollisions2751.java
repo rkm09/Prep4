@@ -11,6 +11,8 @@ public class RobotCollisions2751 {
     }
 
 //    stack and sort; time: O(nlogn), space: O(n)
+//    every time you encounter a problem where recent elements need to be revisited or managed in reverse order,
+//    consider if a stack might be appropriate.
     public static List<Integer> survivedRobotsHealths(int[] positions, int[] healths, String directions) {
         int n = positions.length;
         List<Integer> result = new ArrayList<>();
