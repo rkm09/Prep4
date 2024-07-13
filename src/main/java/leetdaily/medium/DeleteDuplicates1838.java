@@ -2,7 +2,9 @@ package leetdaily.medium;
 
 import common.ListNode;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class DeleteDuplicates1838 {
@@ -14,23 +16,30 @@ public class DeleteDuplicates1838 {
         System.out.println(deleteDuplicatesUnsorted(head).val);
     }
 
-    public static ListNode deleteDuplicatesUnsorted(ListNode head) {
-        Set<Integer> seen = new HashSet<>();
-        ListNode prev = new ListNode(-1, head);
-        ListNode temp = prev;
-        ListNode current = prev.next;
 
+//    recursive + hashmap; time: O(n), space: O(n)
+    public static ListNode deleteDuplicatesUnsorted(ListNode head) {
+        Map<Integer, Integer> frequencies = new HashMap<>();
+        countFrequencies(head, frequencies);
+        return deleteDuplicateUnsortedHelper(head, frequencies);
+    }
+
+    private static void countFrequencies(ListNode head, Map<Integer, Integer> frequencies) {
+        ListNode current = head;
         while(current != null) {
-            if(!seen.contains(current.val)) {
-                seen.add(current.val);
-                prev = prev.next;
-            }
-            else {
-                prev.next = current.next;
-            }
+            frequencies.put(current.val, frequencies.getOrDefault(current.val, 0) + 1);
             current = current.next;
         }
-        return temp.next;
+    }
+
+    private static ListNode deleteDuplicateUnsortedHelper(ListNode head, Map<Integer, Integer> frequencies) {
+        if(head == null)
+            return null;
+        ListNode updatedNextNode = deleteDuplicateUnsortedHelper(head.next, frequencies);
+        head.next = updatedNextNode;
+        if(frequencies.get(head.val) > 1)
+            return updatedNextNode;
+        return head;
     }
 }
 
