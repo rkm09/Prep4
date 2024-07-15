@@ -2,13 +2,42 @@ package leetdaily.medium;
 
 import common.TreeNode;
 
+import java.util.*;
+
 public class CreateBinTree2196 {
     public static void main(String[] args) {
-
+        int[][] desc = {{20,15,1},{20,17,0},{50,20,1},{50,80,0},{80,19,1}};
+        System.out.println(createBinaryTree(desc).val);
     }
-    public TreeNode createBinaryTree(int[][] descriptions) {
+    public static TreeNode createBinaryTree(int[][] descriptions) {
+//        map to store pointers to all nodes
+        Map<Integer, TreeNode> nodeMap = new HashMap<>();
+//        track all the children
+        Set<Integer> children = new HashSet<>();
+        for(int[] info : descriptions) {
+//            add parent, child and the type
+            int parentVal = info[0];
+            int childVal = info[1];
+            if(!nodeMap.containsKey(parentVal))
+                nodeMap.put(parentVal, new TreeNode(parentVal));
+            if(!nodeMap.containsKey(childVal))
+                nodeMap.put(childVal, new TreeNode(childVal));
+            boolean isLeft = info[2] == 1;
+            if(isLeft)
+                nodeMap.get(parentVal).left = nodeMap.get(childVal);
+            else
+                nodeMap.get(parentVal).right = nodeMap.get(childVal);
 
+            children.add(childVal);
+        }
+        for(int key : nodeMap.keySet()) {
+            if(!children.contains(key))
+                return nodeMap.get(key);
+        }
+
+        return null;
     }
+
 }
 
 /*
