@@ -9,6 +9,8 @@ public class CreateBinTree2196 {
         int[][] desc = {{20,15,1},{20,17,0},{50,20,1},{50,80,0},{80,19,1}};
         System.out.println(createBinaryTree(desc).val);
     }
+
+//    hashmap; time: O(n), space: O(n)
     public static TreeNode createBinaryTree(int[][] descriptions) {
 //        map to store pointers to all nodes
         Map<Integer, TreeNode> nodeMap = new HashMap<>();
@@ -30,11 +32,13 @@ public class CreateBinTree2196 {
 
             children.add(childVal);
         }
-        for(int key : nodeMap.keySet()) {
+
+//        return root
+        for(int key : nodeMap.keySet())
             if(!children.contains(key))
                 return nodeMap.get(key);
-        }
 
+//      shouldn't reach here
         return null;
     }
 
