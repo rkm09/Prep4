@@ -2,10 +2,7 @@ package leetdaily.medium;
 
 import common.TreeNode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class ReturnForest1110 {
     public static void main(String[] args) {
@@ -45,6 +42,42 @@ public class ReturnForest1110 {
         }
 
         return node;
+    }
+
+//    bfs forest formation (iteration); time: O(n), space: O(n)
+    public static List<TreeNode> delNodes1(TreeNode root, int[] to_delete) {
+        if(root == null) return null;
+        Set<Integer> toDeleteSet = new HashSet<>();
+        for(Integer val : to_delete)
+            toDeleteSet.add(val);
+        List<TreeNode> forest = new ArrayList<>();
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            if(node.left != null) {
+                queue.offer(node.left);
+                if(toDeleteSet.contains(node.left.val))
+                    node.left = null;
+            }
+            if(node.right != null) {
+                queue.offer(node.right);
+                if(toDeleteSet.contains(node.right.val))
+                    node.right = null;
+            }
+            if(toDeleteSet.contains(node.val)) {
+                if(node.left != null)
+                    forest.add(node.left);
+                if(node.right != null)
+                    forest.add(node.right);
+            }
+        }
+
+        if(!toDeleteSet.contains(root.val))
+            forest.add(root);
+
+        return forest;
     }
 }
 
