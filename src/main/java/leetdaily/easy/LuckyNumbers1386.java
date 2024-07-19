@@ -1,9 +1,6 @@
 package leetdaily.easy;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LuckyNumbers1386 {
     public static void main(String[] args) {
@@ -11,8 +8,35 @@ public class LuckyNumbers1386 {
         System.out.println(luckyNumbers(matrix));
     }
 
-//    simulation; time: O(m*n), space: O(m + n)
+//    greedy; time: O(m*n), space: O(1)
+//    insight: there can be only one such element in the matrix
     public static List<Integer> luckyNumbers (int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int rMinMax = Integer.MIN_VALUE, cMaxMin = Integer.MAX_VALUE;
+        for(int i = 0 ; i < m ; i++) {
+            int rMin = Integer.MAX_VALUE;
+            for(int j = 0 ; j < n ; j++) {
+                rMin = Math.min(rMin, matrix[i][j]);
+            }
+            rMinMax = Math.max(rMinMax, rMin);
+        }
+
+        for(int j = 0 ; j < n ; j++) {
+            int cMax = Integer.MIN_VALUE;
+            for(int i = 0 ; i < m ; i++) {
+                cMax = Math.max(cMax, matrix[i][j]);
+            }
+            cMaxMin = Math.min(cMaxMin, cMax);
+        }
+
+        if(cMaxMin == rMinMax)
+            return new ArrayList<>(List.of(cMaxMin));
+        return new ArrayList<>();
+    }
+
+//    simulation (def); time: O(m*n), space: O(m + n)
+    public static List<Integer> luckyNumbers1(int[][] matrix) {
         List<Integer> res = new ArrayList<>();
         Set<Integer> rowSet = new HashSet<>();
         Set<Integer> colSet = new HashSet<>();
