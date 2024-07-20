@@ -50,7 +50,7 @@ public class RestoreMatrix1605 {
         return origMatrix;
     }
 
-//  space and time optimized greedy; time: O(n), space: O(1)
+//    space and time optimized greedy; time: O(n), space: O(1)
 //    modifies input
     public static int[][] restoreMatrix2(int[] rowSum, int[] colSum) {
         int m = rowSum.length;
