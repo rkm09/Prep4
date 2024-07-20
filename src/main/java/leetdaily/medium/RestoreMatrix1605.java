@@ -32,6 +32,43 @@ public class RestoreMatrix1605 {
         }
         return origMatrix;
     }
+
+//    space optimized greedy; time: O(m*n), space: O(1)
+//    modifies input
+    public static int[][] restoreMatrix1(int[] rowSum, int[] colSum) {
+        int m = rowSum.length;
+        int n = colSum.length;
+        int[][] origMatrix = new int[m][n];
+
+        for(int i = 0 ; i < m ; i++) {
+            for(int j = 0 ; j < n ; j++) {
+                origMatrix[i][j] = Math.min(rowSum[i], colSum[j]);
+                rowSum[i] -= origMatrix[i][j];
+                colSum[j] -= origMatrix[i][j];
+            }
+        }
+        return origMatrix;
+    }
+
+//  space and time optimized greedy; time: O(n), space: O(1)
+//    modifies input
+    public static int[][] restoreMatrix2(int[] rowSum, int[] colSum) {
+        int m = rowSum.length;
+        int n = colSum.length;
+        int[][] origMatrix = new int[m][n];
+
+        int i = 0, j = 0;
+        while(i < m && j < n) {
+            origMatrix[i][j] = Math.min(rowSum[i], colSum[j]);
+            rowSum[i] -= origMatrix[i][j];
+            colSum[j] -= origMatrix[i][j];
+            if(rowSum[i] == 0)
+                i++;
+            else
+                j++;
+        }
+        return origMatrix;
+    }
 }
 
 /*
