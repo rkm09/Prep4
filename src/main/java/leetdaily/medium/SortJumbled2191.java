@@ -6,7 +6,7 @@ public class SortJumbled2191 {
     public static void main(String[] args) {
         int[] mapping = {8,9,4,0,2,1,3,5,7,6};
         int[] nums = {991,338,38};
-        System.out.println(Arrays.toString(sortJumbled(mapping, nums)));
+        System.out.println(Arrays.toString(sortJumbled1(mapping, nums)));
     }
 
 //    sorting without string conversion; time: O(nlogn), space: O(n)
@@ -35,6 +35,30 @@ public class SortJumbled2191 {
             res[i] = nums[storePairs.get(i)[1]];
         }
 
+        return res;
+    }
+
+//    sorting and string conversion; time: O(nlogn), space: O(n)
+    public static int[] sortJumbled1(int[] mapping, int[] nums) {
+        List<int[]> storePairs = new ArrayList<>();
+        int n = nums.length;
+
+        for(int i = 0 ; i < n ; i++) {
+            String numStr = String.valueOf(nums[i]);
+            StringBuilder sb = new StringBuilder();
+            for(char c : numStr.toCharArray()) {
+                sb.append(mapping[c - '0']);
+            }
+            int num = Integer.parseInt(sb.toString());
+            storePairs.add(new int[] {num, i});
+        }
+
+        storePairs.sort(Comparator.comparingInt(a -> a[0]));
+
+        int[] res = new int[n];
+        for(int i = 0 ; i < n ; i++) {
+            res[i] = nums[storePairs.get(i)[1]];
+        }
         return res;
     }
 }
