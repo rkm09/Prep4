@@ -7,7 +7,7 @@ public class BookCase1105 {
     }
 
     public static int minHeightShelves(int[][] books, int shelfWidth) {
-        
+        return 0;
     }
 }
 
