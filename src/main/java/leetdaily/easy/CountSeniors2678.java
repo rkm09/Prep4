@@ -6,13 +6,23 @@ public class CountSeniors2678 {
         System.out.println(countSeniors(details));
     }
 
-//    [def];
+//    character based extraction [def]; time: O(n), space: O(1) [better approach]
     public static int countSeniors(String[] details) {
         int count = 0;
         for(String person : details) {
             int dig1 = person.charAt(11) - '0';
             int dig2 = person.charAt(12) - '0';
             if(10 * dig1 + dig2 > 60) count++;
+        }
+        return count;
+    }
+
+//    substring based; time: O(n), space: O(1) [substring itself is linear time, still is ok for this case since string length is fixed to 15]
+    public static int countSeniors1(String[] details) {
+        int count = 0;
+        for(String person : details) {
+            int age = Integer.parseInt(person.substring(11,13));
+            if(age > 60) count++;
         }
         return count;
     }
