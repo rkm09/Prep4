@@ -25,6 +25,22 @@ public class CanBeEqual1460 {
         }
         return true;
     }
+
+//    slightly modified; one loop less; time: O(n), space: O(n)
+    public static boolean canBeEqual1(int[] target, int[] arr) {
+        Map<Integer, Integer> freq = new HashMap<>();
+        for(int num : arr) {
+            freq.put(num, freq.getOrDefault(num, 0) + 1);
+        }
+        for(int num : target) {
+            if(!freq.containsKey(num)) return false;
+            freq.put(num, freq.get(num) - 1);
+            if(freq.get(num) == 0)
+                freq.remove(num);
+        }
+        return freq.size() == 0;
+    }
+
 }
 
 /*
