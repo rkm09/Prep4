@@ -11,7 +11,7 @@ public class RangeSum1508 {
         System.out.println(rangeSum(nums, 4, 1, 5));
     }
 
-//    [def]; time: O(n^2), space: O(n)
+//    [def] brute force; time: O(n^2), space: O(n)
     public static int rangeSum(int[] nums, int n, int left, int right) {
         List<Integer> subs = new ArrayList<>();
         for(int i = 0 ; i < n ; i++) {
