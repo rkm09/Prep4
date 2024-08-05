@@ -6,8 +6,20 @@ public class RepeatingSubstring1062 {
         System.out.println(longestRepeatingSubstring(s));
     }
 
+//    dp; time: O(n^2), space: O(n^2)
     public static int longestRepeatingSubstring(String s) {
-        return 0;
+        int n = s.length(), maxLength = 0;
+        int[][] dp = new int[n + 1][n + 1];
+        for(int i = 1 ; i <= n ; i++) {
+            for(int j = i + 1 ; j <= n ; j++) {
+//                if the characters match, extend the length of the common substring
+                if(s.charAt(i - 1) == s.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                    maxLength = Math.max(maxLength, dp[i][j]);
+                }
+            }
+        }
+        return maxLength;
     }
 }
 
