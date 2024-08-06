@@ -1,5 +1,6 @@
 package leetdaily.medium;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -27,6 +28,29 @@ public class MinPushes3016 {
             totalPushes += (index++ / 8 + 1) * frequencyQueue.poll();
         }
 
+        return totalPushes;
+    }
+
+//    greedy sorting; time: O(n), space: O(1); faster
+    public static int minimumPushes1(String word) {
+        int[] freq = new int[26];
+        for(char c : word.toCharArray())
+            freq[c - 'a']++;
+
+        //Integer[] sortedFreq = Arrays.stream(freq).boxed().toArray(Integer[]::new); // slower with this approach
+        //Arrays.sort(sortedFreq, (a,b) -> b - a);
+
+        Arrays.sort(freq);
+        int[] sortedFreq = new int[26];
+//        descending order
+        for(int i = 0 ; i < 26 ; i++)
+            sortedFreq[i] = freq[25 - i];
+
+        int totalPushes = 0;
+        for(int i = 0 ; i < 26 ; i++) {
+            if(sortedFreq[i] == 0) break;
+            totalPushes += (i / 8 + 1) * sortedFreq[i];
+        }
         return totalPushes;
     }
 }
