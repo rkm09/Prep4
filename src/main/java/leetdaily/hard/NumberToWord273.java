@@ -16,11 +16,11 @@ public class NumberToWord273 {
             new NumberWord(17, "Seventeen"), new NumberWord(16, "Sixteen"),
             new NumberWord(15, "Fifteen"), new NumberWord(14, "Fourteen"),
             new NumberWord(13, "Thirteen"), new NumberWord(12, "Twelve"),
-            new NumberWord(11, "Eleven"),new NumberWord(10, "Ten"),
-            new NumberWord(9, "Nine"),new NumberWord(8, "Eight"),
-            new NumberWord(7, "Seven"),new NumberWord(6, "Six"),
-            new NumberWord(5, "Five"),new NumberWord(4, "Four"),
-            new NumberWord(3, "Three"),new NumberWord(2, "Two"),
+            new NumberWord(11, "Eleven"), new NumberWord(10, "Ten"),
+            new NumberWord(9, "Nine"), new NumberWord(8, "Eight"),
+            new NumberWord(7, "Seven"), new NumberWord(6, "Six"),
+            new NumberWord(5, "Five"), new NumberWord(4, "Four"),
+            new NumberWord(3, "Three"), new NumberWord(2, "Two"),
             new NumberWord(1, "One")
     );
 
