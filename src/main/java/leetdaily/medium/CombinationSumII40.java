@@ -31,7 +31,7 @@ public class CombinationSumII40 {
 //                add to tempList
                 tempList.add(candidates[i]);
 //                check for all possible scenarios
-                backtrack(tempList, candidates, totalLeft - candidates[i], index + 1);
+                backtrack(tempList, candidates, totalLeft - candidates[i], i + 1);
 //                backtrack the tempList
                 tempList.remove(tempList.size() - 1);
             }
