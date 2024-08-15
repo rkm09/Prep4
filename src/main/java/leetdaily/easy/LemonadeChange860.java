@@ -9,7 +9,34 @@ public class LemonadeChange860 {
         System.out.println(lemonadeChange(bills));
     }
 
+//    simulation; time: O(n), space: O(1)
     public static boolean lemonadeChange(int[] bills) {
+        int fiveDollarBills = 0, tenDollarBills = 0;
+        for(int bill : bills) {
+            if(bill == 5) {
+//                just add
+                fiveDollarBills++;
+            } else if(bill == 10) {
+//                return 5
+                if(fiveDollarBills > 0) {
+                    fiveDollarBills--;
+                    tenDollarBills++;
+                } else return false;
+            } else if(bill == 20) {
+//                return 15
+                if(tenDollarBills > 0 && fiveDollarBills > 0) {
+                    tenDollarBills--;
+                    fiveDollarBills--;
+                } else if(fiveDollarBills > 2) {
+                    fiveDollarBills = fiveDollarBills - 3;
+                } else return false;
+            }
+        }
+        return true;
+    }
+
+//    [def]; simulation; time: O(n), space : O(n)
+    public static boolean lemonadeChange1(int[] bills) {
         Map<Integer, Integer> freq = new HashMap<>();
         for(int bill : bills) {
             if(bill == 10) {
@@ -26,7 +53,8 @@ public class LemonadeChange860 {
                     freq.put(5, freq.get(5) - 3);
                 } else return false;
             }
-            freq.put(bill, freq.getOrDefault(bill, 0) + 1);
+            if(bill != 20)
+                freq.put(bill, freq.getOrDefault(bill, 0) + 1);
         }
         return true;
     }
