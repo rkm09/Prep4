@@ -53,25 +53,19 @@ public class UglyNumII264 {
     public static int nthUglyNumber2(int n) {
         int[] uNums = new int[n];
         uNums[0] = 1;
-        int indexMultipleOf2 = 0, indexMultipleOf3 = 0, indexMultipleOf5 = 0;
+        int indexMultipleOf2 = 1, indexMultipleOf3 = 1, indexMultipleOf5 = 1;
         int nextMultipleOf2 = 2, nextMultipleOf3 = 3, nextMultipleOf5 = 5;
         for(int i = 1 ; i < n ; i++) {
 //            find the next number as the smallest among the multiples
             int nextUNum = Math.min(nextMultipleOf2, Math.min(nextMultipleOf3, nextMultipleOf5));
             uNums[i] = nextUNum;
 //            update the corresponding pointer and the next uNum
-            if(nextUNum == nextMultipleOf2) {
-                indexMultipleOf2++;
-                nextMultipleOf2 = uNums[indexMultipleOf2] * 2;
-            }
-            if(nextUNum == nextMultipleOf3) {
-                indexMultipleOf3++;
-                nextMultipleOf3 = uNums[indexMultipleOf3] * 3;
-            }
-            if(nextUNum == nextMultipleOf5) {
-                indexMultipleOf5++;
-                nextMultipleOf5 = uNums[indexMultipleOf5] * 5;
-            }
+            if(nextUNum == nextMultipleOf2)
+                nextMultipleOf2 = uNums[indexMultipleOf2++] * 2;
+            if(nextUNum == nextMultipleOf3)
+                nextMultipleOf3 = uNums[indexMultipleOf3++] * 3;
+            if(nextUNum == nextMultipleOf5)
+                nextMultipleOf5 = uNums[indexMultipleOf5++] * 5;
         }
 
         return uNums[n - 1];
