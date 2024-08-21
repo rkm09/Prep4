@@ -7,7 +7,7 @@ public class StoneGameII1140 {
     }
 
     public static int stoneGameII(int[] piles) {
-        
+        return 0;
     }
 }
 
