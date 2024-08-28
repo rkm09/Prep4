@@ -2,11 +2,11 @@ package leetdaily.medium;
 
 public class MaxProbability1504 {
     public static void main(String[] args) {
-        
+
     }
 
     public static double maxProbability(int n, int[][] edges, double[] succProb, int start_node, int end_node) {
-
+        return 0.0;
     }
 }
 
