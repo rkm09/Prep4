@@ -1,5 +1,9 @@
 package leetdaily.medium;
 
+import common.Pair;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +44,39 @@ public class PathSumIV666 {
 
 //        return the total path sum of the tree rooted at the current node
         return leftSum + rightSum;
+    }
+
+//    bfs; time: O(n), space: O(n)
+    public int pathSum1(int[] nums) {
+        if(nums == null || nums.length == 0) return 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : nums) {
+            int coordinates = num / 10;
+            int value = num % 10;
+            map.put(coordinates, value);
+        }
+        Deque<Pair<Integer,Integer>> queue = new ArrayDeque<>();
+        int rootCoordinates = nums[0] / 10;
+        queue.offer(new Pair<>(rootCoordinates, map.get(rootCoordinates)));
+        int totalSum = 0;
+        while(!queue.isEmpty()) {
+            Pair<Integer, Integer> current = queue.poll();
+            int coordinates = current.getKey();
+            int currSum = current.getValue();
+            int level = coordinates / 10;
+            int position = coordinates % 10;
+//            find the left and the right coordinates
+            int left = (level + 1) * 10 + 2 * position - 1;
+            int right = (level + 1) * 10 + 2 * position;
+            if(!map.containsKey(left) && !map.containsKey(right))
+                totalSum += currSum;
+//            add left child to the queue if it exists
+            if(map.containsKey(left))
+                queue.offer(new Pair<>(left, currSum + map.get(left)));
+            if(map.containsKey(right))
+                queue.offer(new Pair<>(right, currSum + map.get(right)));
+        }
+        return totalSum;
     }
 }
 
