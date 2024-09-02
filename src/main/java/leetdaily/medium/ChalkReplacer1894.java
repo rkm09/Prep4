@@ -2,8 +2,8 @@ package leetdaily.medium;
 
 public class ChalkReplacer1894 {
     public static void main(String[] args) {
-        int[] chalk = {5,1,5};
-        System.out.println(chalkReplacer(chalk, 22));
+        int[] chalk = {3,4,1,2};
+        System.out.println(chalkReplacer1(chalk, 25));
     }
 
 //    prefix sum; time: O(n), space: O(1)
@@ -22,6 +22,31 @@ public class ChalkReplacer1894 {
             index %= chalk.length;
         }
         return index;
+    }
+
+//    binary search; time: O(n), space: O(n)
+//    Binary search is ideal here because it quickly narrows down the search space in a sorted array.
+    public static int chalkReplacer1(int[] chalk, int k) {
+        int n = chalk.length;
+        long[] prefixSum = new long[n];
+        prefixSum[0] = chalk[0];
+        for(int i = 1 ; i < n ; i++)
+            prefixSum[i] = prefixSum[i - 1] + chalk[i];
+        long sum = prefixSum[n - 1];
+        int remainingChalk = k % (int) sum;
+        return binarySearch(prefixSum, remainingChalk);
+    }
+
+    private static int binarySearch(long[] arr, long target) {
+        int low = 0, high = arr.length - 1;
+        while(low < high) {
+            int mid = low + (high - low) / 2;
+            if(arr[mid] <= target)
+                low = mid + 1;
+            else
+                high = mid;
+        }
+        return high;
     }
 }
 
