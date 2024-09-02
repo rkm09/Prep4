@@ -6,6 +6,9 @@ public class ChalkReplacer1894 {
         System.out.println(chalkReplacer(chalk, 22));
     }
 
+//    prefix sum; time: O(n), space: O(1)
+//    note: brute force leads to TLE.
+//    k reduced by multiples of sum will eventually be less than sum, and this final value is equivalent to k % sum.
     public static int chalkReplacer(int[] chalk, int k) {
         long sum = 0;
         for (int j : chalk) {
