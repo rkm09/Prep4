@@ -3,7 +3,7 @@ package leetdaily.easy;
 public class GetLucky1945 {
     public static void main(String[] args) {
         String s = "zbax";
-        System.out.println(getLucky(s, 2));
+        System.out.println(getLucky1(s, 2));
     }
 
 //    def; time: O(n), space: O(n)
@@ -19,6 +19,27 @@ public class GetLucky1945 {
             }
             sb.setLength(0);
             sb.append(sum);
+        }
+        return sum;
+    }
+
+//    integer conversion; time: O(n), space: O(1)
+    public static int getLucky1(String s, int k) {
+        int sum = 0 ;
+        for(char c : s.toCharArray()) {
+            int position = c - 'a' + 1;
+            while(position > 0) {
+                sum += position % 10;
+                position /= 10;
+            }
+        }
+        while(--k > 0) {
+            int digitSum = 0;
+            while(sum > 0) {
+                digitSum += sum % 10;
+                sum /= 10;
+            }
+            sum = digitSum;
         }
         return sum;
     }
