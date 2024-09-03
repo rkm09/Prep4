@@ -6,7 +6,7 @@ public class GetLucky1945 {
         System.out.println(getLucky(s, 2));
     }
 
-//    def; time: O(n), space: O(1)
+//    def; time: O(n), space: O(n)
     public static int getLucky(String s, int k) {
         StringBuilder sb = new StringBuilder();
         for(char c : s.toCharArray())
