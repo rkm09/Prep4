@@ -1,6 +1,7 @@
 package leetdaily.medium;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RemoveStones947 {
@@ -46,6 +47,62 @@ public class RemoveStones947 {
         for(int neighbour : adjacencyList.get(stone)) {
             if(!visited[neighbour])
                 depthFirstSearch(adjacencyList, visited, neighbour);
+        }
+    }
+
+//    disjoint set union;
+    public int removeStones1(int[][] stones) {
+        int n = stones.length;
+        UnionFind uf = new UnionFind(n);
+        for(int i = 0 ; i < n ; i++) {
+            for(int j = i + 1 ; j < n ; j++) {
+                if(stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1])
+                    uf.union(i,j);
+            }
+        }
+        return n - uf.getCount();
+    }
+
+    class UnionFind {
+        int[] parent;
+        int[] rank;
+        int count;
+        UnionFind(int n) {
+            parent = new int[n];
+            rank = new int[n];
+            for(int i = 0 ; i < n ; i++) {
+                parent[i] = i;
+            }
+            count = n;
+        }
+
+//        path compression
+        int find(int i) {
+            if(parent[i] != i) {
+                parent[i] = find(parent[i]);
+            }
+            return parent[i];
+        }
+
+//        union
+        void union(int x, int y) {
+            int rootX = find(x);
+            int rootY = find(y);
+            if(rootX != rootY) {
+                if(rank[rootX] > rank[rootY])
+                    parent[rootY] = rootX;
+                else if(rank[rootX] < rank[rootY])
+                    parent[rootX] = rootY;
+                else {
+                    parent[rootY] = rootX;
+                    rank[rootX]++;
+                }
+                count--;
+            }
+        }
+//        get count
+        int getCount() {
+            return count;
         }
     }
 }
