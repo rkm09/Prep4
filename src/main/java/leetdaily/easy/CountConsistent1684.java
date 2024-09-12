@@ -9,22 +9,48 @@ public class CountConsistent1684 {
         System.out.println(countConsistentStrings("ab", words));
     }
 
-//    set; def; time: O(m.n), space: O(n)
+//    hashset; time: O(m + n.k), space: O(m) [m - allowed length, n - words length, k - each word length]
     public static int countConsistentStrings(String allowed, String[] words) {
         Set<Character> lookup = new HashSet<>();
         for(char c : allowed.toCharArray())
             lookup.add(c);
         int count = 0;
         for(String word : words) {
-            int idx = 0;
+            boolean isConsistent = true;
             for(char c : word.toCharArray()) {
-                if(!lookup.contains(c)) break;
-                else if(word.length() == idx + 1) count++;
-                idx++;
+                if(!lookup.contains(c)) {
+                    isConsistent = false;
+                    break;
+                }
             }
+            if(isConsistent) count++;
         }
         return count;
     }
+
+//    bitmask; time: O(m + n.k), space: O(1)
+    public static int countConsistentStrings1(String allowed, String[] words) {
+//        allowedBits will represent the bitmask for allowed characters
+        int allowedBits = 0;
+//        set the corresponding bit for each character in allowed
+        for(char c : allowed.toCharArray())
+            allowedBits |= (1 << c - 'a');
+        int consistentCount = 0;
+//        iterate through each word in the word array
+        for(String word : words) {
+            boolean isConsistent = true;
+            for(char c : word.toCharArray()) {
+                int bit = (allowedBits >> c - 'a') & 1;
+                if(bit == 0) {
+                    isConsistent = false;
+                    break;
+                }
+            }
+            if(isConsistent) consistentCount++;
+        }
+        return consistentCount;
+    }
+
 }
 
 /*
