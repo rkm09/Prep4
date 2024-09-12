@@ -9,8 +9,10 @@ public class MeetingScheduler1229 {
         System.out.println(minAvailableDuration(slots1, slots2, 8));
     }
 
-//    heap; time: O((M+N)log(M+N)), space: O(M+N)
+//    heap; time: O((M+N)log(M+N)), space: O(M+N) [faster]
     public static List<Integer> minAvailableDuration(int[][] slots1, int[][] slots2, int duration) {
+//        note: maintaining a single heap is sufficient; check the constraint.
+//        "It is guaranteed that no two availability slots of the same person intersect with each other."
         PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
         for(int[] slot : slots1) {
             if(slot[1] - slot[0] >= duration)
@@ -20,19 +22,34 @@ public class MeetingScheduler1229 {
             if(slot[1] - slot[0] >= duration)
                 pq.offer(slot);
         }
-        List<Integer> res = new ArrayList<>();
 //        note: not using isEmpty() here, since we need a minimum of 2 elements in the queue always, not 1
         while(pq.size() > 1) {
             int[] slot1 = pq.poll();
             int[] slot2 = pq.peek();
-            if(slot1[1] >= slot2[0] + duration) {
-                res.add(slot2[0]);
-                res.add(slot2[0] + duration);
-//                note: you need to return instantly, else list will keep getting in more elements
-                return res;
-            }
+            if(slot1[1] >= slot2[0] + duration)
+                return new ArrayList<>(Arrays.asList(slot2[0], slot2[0] + duration));
         }
-        return res;
+        return new ArrayList<>();
+    }
+
+//    two pointer; time: O((M+N)log(M+N)), space: O(logN) [a variant of quick sort in java]
+    public static List<Integer> minAvailableDuration1(int[][] slots1, int[][] slots2, int duration) {
+        Arrays.sort(slots1, Comparator.comparingInt(a -> a[0]));
+        Arrays.sort(slots2, Comparator.comparingInt(a -> a[0]));
+        int pointer1 = 0, pointer2 = 0;
+        while(pointer1 < slots1.length && pointer2 < slots2.length) {
+//            find boundaries of the intersection or the common slot
+            int intersectLeft = Math.max(slots1[pointer1][0], slots2[pointer2][0]);
+            int intersectRight = Math.min(slots1[pointer1][1], slots2[pointer2][1]);
+            if(intersectRight - intersectLeft >= duration)
+                return new ArrayList<>(Arrays.asList(intersectLeft, intersectLeft + duration));
+//            always move the pointer of the one that ends earlier
+            if(slots1[pointer1][1] < slots2[pointer2][1])
+                pointer1++;
+            else
+                pointer2++;
+        }
+        return new ArrayList<>();
     }
 }
 
