@@ -10,8 +10,24 @@ public class XORQueries1314 {
         System.out.println(Arrays.toString(xorQueries(arr, queries)));
     }
 
-//    def(iterative); time: O(q.n), space: O(1) [q - number of queries, n - number of elements]
+//    prefix xor; time: O(n + q), space: O(1)  [fast]
     public static int[] xorQueries(int[] arr, int[][] queries) {
+        int n = arr.length;
+        int[] prefixXOR = new int[n + 1];
+//        build prefix xor array
+        for(int i = 0 ; i < n ; i++)
+            prefixXOR[i + 1]  = prefixXOR[i] ^ arr[i];
+        int[] res = new int[queries.length];
+        for(int i = 0 ; i < queries.length ; i++) {
+            int left = queries[i][0];
+            int right = queries[i][1];
+            res[i] = prefixXOR[right + 1] ^ prefixXOR[left];
+        }
+        return res;
+    }
+
+//    def(iterative); time: O(q.n), space: O(1) [q - number of queries, n - number of elements]
+    public static int[] xorQueries1(int[] arr, int[][] queries) {
         int[] res = new int[queries.length];
         int idx = 0;
         for(int[] query : queries) {
