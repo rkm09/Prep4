@@ -10,18 +10,18 @@ public class XORQueries1314 {
         System.out.println(Arrays.toString(xorQueries(arr, queries)));
     }
 
-//    def; time: O(n), space: O(1)
+//    def(iterative); time: O(q.n), space: O(1) [q - number of queries, n - number of elements]
     public static int[] xorQueries(int[] arr, int[][] queries) {
         int[] res = new int[queries.length];
         int idx = 0;
         for(int[] query : queries) {
             int i = query[0];
             int j = query[1];
-            int val = arr[i];
+            int xorSum = arr[i];
             while(i != j) {
-                val ^= arr[++i];
+                xorSum ^= arr[++i];
             }
-            res[idx++] = val;
+            res[idx++] = xorSum;
         }
         return res;
     }
