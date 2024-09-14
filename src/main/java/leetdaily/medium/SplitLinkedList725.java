@@ -2,7 +2,7 @@ package leetdaily.medium;
 
 import common.ListNode;
 
-public class splitLinkedList725 {
+public class SplitLinkedList725 {
     public static void main(String[] args) {
         ListNode next2 = new ListNode(3);
         ListNode next1 = new ListNode(2, next2);
