@@ -14,7 +14,7 @@ public class FindTheCity1334 {
         int INF = (int) 1e9 + 7;
 //        matrix to store shortest path distances from each node
         int[][] shortestPathMatrix = new int[n][n];
-//        initialize shortest path matrix
+//        initialize the shortest path matrix
         for(int i = 0 ; i < n ; i++) {
 //            set all distances to infinity
             Arrays.fill(shortestPathMatrix[i], INF);
