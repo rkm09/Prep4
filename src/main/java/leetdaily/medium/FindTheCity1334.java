@@ -26,7 +26,7 @@ public class FindTheCity1334 {
             shortestPathMatrix[edge[0]][edge[1]] = edge[2];
             shortestPathMatrix[edge[1]][edge[0]] = edge[2];
         }
-//      compute shortest path from each city using bellman-ford
+//      compute the shortest path from each city using bellman-ford
         for(int i = 0 ; i < n ; i++) {
             bellmanFord(n, edges, shortestPathMatrix[i], i);
         }
@@ -39,7 +39,7 @@ public class FindTheCity1334 {
 //        initialize distances from the source
         Arrays.fill(shortestPathDistances, Integer.MAX_VALUE);
         shortestPathDistances[source] = 0;
-//        relax edges upto n - 1
+//        relax edges till n - 1
         for(int i = 1 ; i < n ; i++) {
             for(int[] edge : edges) {
 //                update the shortest path distance if a shorter path is found
