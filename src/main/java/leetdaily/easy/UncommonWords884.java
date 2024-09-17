@@ -9,7 +9,7 @@ public class UncommonWords884 {
         System.out.println(Arrays.toString(uncommonFromSentences(s1, s2)));
     }
 
-//    def; map; time: O(n), space: O(n)
+//    def; hashmap; time: O(n), space: O(n)
     public static String[] uncommonFromSentences(String s1, String s2) {
         String[] arr1 = s1.split(" ");
         String[] arr2 = s2.split(" ");
@@ -23,10 +23,7 @@ public class UncommonWords884 {
             if(freqMap.get(key) == 1)
                 res.add(key);
         }
-        String[] resAr = new String[res.size()];
-        for(int i = 0 ; i < res.size() ; i++)
-            resAr[i] = res.get(i);
-        return resAr;
+        return res.toArray(new String[0]);
     }
 }
 
