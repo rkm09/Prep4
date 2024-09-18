@@ -26,7 +26,7 @@ public class LargestNumber179 {
         return res.charAt(0) == '0' ? "0" : res.toString();
     }
 
-//    using built-in function; time: O(nlogn), space: O(n)
+//    using built-in function; time: O(nlogn), space: O(n + logn)
     public static String largestNumber1(int[] nums) {
         String[] numStrArr = new String[nums.length];
         for(int i = 0 ; i < nums.length ; i++)
