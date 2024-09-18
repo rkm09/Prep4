@@ -1,5 +1,6 @@
 package leetdaily.medium;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 public class LargestNumber179 {
@@ -23,6 +24,21 @@ public class LargestNumber179 {
             res.append(maxHeap.poll());
 //        handle edge case where the result might be "00000.."
         return res.charAt(0) == '0' ? "0" : res.toString();
+    }
+
+//    using built-in function; time: O(nlogn), space: O(n)
+    public static String largestNumber1(int[] nums) {
+        String[] numStrArr = new String[nums.length];
+        for(int i = 0 ; i < nums.length ; i++)
+            numStrArr[i] = String.valueOf(nums[i]);
+
+        Arrays.sort(numStrArr, (a, b) -> b.concat(a).compareTo(a.concat(b)));
+
+        if(numStrArr[0].equals("0")) return "0";
+        StringBuilder res = new StringBuilder();
+        for(String s : numStrArr)
+            res.append(s);
+        return res.toString();
     }
 }
 
