@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 public class LargestNumber179 {
     public static void main(String[] args) {
         int[] nums = {3,30,34,5,9};
-        System.out.println(largestNumber(nums));
+        System.out.println(largestNumber2(nums));
     }
 
 //    heap sort; time: O(nlogn), space: O(nlogk) [k is the length of each element]
@@ -39,6 +39,48 @@ public class LargestNumber179 {
         for(String s : numStrArr)
             res.append(s);
         return res.toString();
+    }
+
+//    merge sort; time: O(nlogn), space: O(n)
+//    TODO: is not functional now
+    public static String largestNumber2(int[] nums) {
+        int[] temp = new int[nums.length];
+        mergeSort(nums, 0, nums.length - 1, temp);
+        StringBuilder res = new StringBuilder();
+        return res.toString().charAt(0) == '0' ? "0" : res.toString();
+    }
+
+    private static void mergeSort(int[] nums, int left, int right, int[] temp) {
+        if(left >= right) return;
+        int mid = (left + right) / 2;
+        mergeSort(nums, left, mid, temp);
+        mergeSort(nums, mid + 1, right, temp);
+        merge(nums, left, mid, right, temp);
+    }
+
+    private static void merge(int[] nums, int left, int mid, int right, int[] temp) {
+        int start1 = left;
+        int start2 = mid + 1;
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+//        copy elements of both halves into temp array
+        for(int i = 0 ; i < n1 ; i++)
+            temp[start1 + i] = nums[start1 + i];
+        for(int i = 0 ; i < n2 ; i++)
+            temp[start2 + i] = nums[start2 + i];
+//        merge the sorted sub arrays
+        int i = 0, j = 0, k = left;
+        while(i < n1 && j < n2) {
+            if(temp[start1 + i] <= temp[start2 + j])
+                nums[k++] = temp[start1 + i++];
+            else
+                nums[k++] = temp[start2 + j++];
+        }
+//        copy remaining elements if any
+        while(i < n1)
+            nums[k++] = temp[start1 + i++];
+        while(j < n2)
+            nums[k++] = temp[start2 + j++];
     }
 }
 
