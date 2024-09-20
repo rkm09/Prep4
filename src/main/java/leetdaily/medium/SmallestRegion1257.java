@@ -4,21 +4,57 @@ import java.util.*;
 
 public class SmallestRegion1257 {
     public static void main(String[] args) {
+        SmallestRegion1257 s = new SmallestRegion1257();
         List<String> region1 = Arrays.asList("Earth","North America","South America");
         List<String> region2 = Arrays.asList("North America","United States","Canada");
         List<String> region3 = Arrays.asList("United States","New York","Boston");
         List<String> region4 = Arrays.asList("Canada","Ontario","Quebec");
         List<String> region5 = Arrays.asList("South America","Brazil");
         List<List<String>> regions = Arrays.asList(region1, region2, region3, region4, region5);
-        System.out.println(findSmallestRegion(regions, "Quebec", "New York"));
+        System.out.println(s.findSmallestRegion(regions, "Quebec", "New York"));
     }
 
-    public static String findSmallestRegion(List<List<String>> regions, String region1, String region2) {
-        Map<String, Set<String>> adjMap = new HashMap<>();
-        for(List<String> regionList : regions) {
 
+//    lowest common ancestor of a generic tree; time: O(m*n), space: O(m*n) [m - number of region arrays, n - number of regions in each array]
+    public String findSmallestRegion(List<List<String>> regions, String region1, String region2) {
+//        map to store (child -> parent) relationships for each region
+        Map<String, String> childParentMap = new HashMap<>();
+//        populate the 'childParentMap' using the provided 'regions' list
+        for(List<String> region : regions) {
+            String parentNode = region.get(0);
+            for(int i = 1 ; i < region.size() ; i++) {
+                childParentMap.put(region.get(i), parentNode);
+            }
         }
-        return "";
+//        store paths from the root node to 'region1' and 'region2' in their respective list
+        List<String> path1 = fetchPathForRegion(region1, childParentMap);
+        List<String> path2 = fetchPathForRegion(region2, childParentMap);
+//        traverse both paths simultaneously until the paths diverge
+//        the last common node is the lowest common ancestor
+        int i = 0, j = 0;
+        String lowestCommonAncestor = "";
+        while(i < path1.size() && j < path2.size() && path1.get(i).equals(path2.get(j))) {
+            lowestCommonAncestor = path1.get(i);
+            i++; j++;
+        }
+//        return the lowest common ancestor of 'region1' and 'region2'
+        return lowestCommonAncestor;
+    }
+
+//    method that returns the path from the root node to the current node
+    private List<String> fetchPathForRegion(String currNode, Map<String, String> childParentMap) {
+        List<String> path = new ArrayList<>();
+//        start by adding the current node to the list
+        path.add(currNode);
+//        traverse upward through the tree by finding the parent of the current node; continue until the root node is reached
+        while(childParentMap.containsKey(currNode)) {
+            String parentNode = childParentMap.get(currNode);
+            path.add(parentNode);
+            currNode = parentNode;
+        }
+//        reverse the path so that it starts from the root and ends at the current node
+        Collections.reverse(path);
+        return path;
     }
 }
 
