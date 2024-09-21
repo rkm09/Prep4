@@ -8,7 +8,7 @@ public class LexicalOrder386 {
         System.out.println(lexicalOrder(13));
     }
 
-//    dfs (recursion); time : O(n), space: O(log10n) [~ O(1) based on constraint]
+//    dfs (recursion); time : O(n), space: O(log10n) [~ O(1) based on constraint]   [faster]
     public static List<Integer> lexicalOrder(int n) {
         List<Integer> lexicographicalNumbers = new ArrayList<>();
 //        start generating numbers from 1 to 9
@@ -31,6 +31,26 @@ public class LexicalOrder386 {
             else
                 break; // no need to continue recursion if the next number exceeds limit
         }
+    }
+
+//    iterative approach; time: O(n), space: O(1)
+    public static List<Integer> lexicalOrder1(int n) {
+        List<Integer> result = new ArrayList<>();
+        int currentNumber = 1;
+//        generate numbers from 1 to n
+        for(int i = 0 ; i < n ; i++) {
+            result.add(currentNumber);
+//            if multiplying the current number by 10 is within limit, do it
+            if(currentNumber * 10 <= n)
+                currentNumber *= 10;
+            else {
+//                adjust the current number by moving up one digit
+                while(currentNumber % 10 == 9 || currentNumber >= n)
+                    currentNumber /= 10; // remove the last digit
+                currentNumber++; // increment the number
+            }
+        }
+        return result;
     }
 }
 
