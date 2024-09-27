@@ -2,6 +2,7 @@ package leetdaily.medium;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class MyCalendarI729 {
     public static void main(String[] args) {
@@ -10,15 +11,35 @@ public class MyCalendarI729 {
     }
 }
 
-// brute force; time: O(n^2), space: O(n)
+//  sorted map and binary search; time: O(nlogn), space: O(n)
+//  If we maintained our events in sorted order, we could check whether an event could be booked in O(logN) time (where N is the number of events already booked)
+//  by binary searching for where the event should be placed. We would also have to insert the event in our sorted structure.
 class MyCalendar {
-    List<int[]> events;
+    TreeMap<Integer, Integer> eventMap;
     MyCalendar() {
+        eventMap = new TreeMap<>();
+    }
+    public boolean book(int start, int end) {
+        Integer prev = eventMap.floorKey(start);
+        Integer next = eventMap.ceilingKey(start);
+        if((prev == null || eventMap.get(prev) <= start) &&
+                (next == null || end <= next)) {
+            eventMap.put(start, end);
+            return true;
+        }
+        return false;
+    }
+}
+
+// brute force; time: O(n^2), space: O(n)
+class MyCalendar1 {
+    List<int[]> events;
+    MyCalendar1() {
         events = new ArrayList<>();
     }
 
 //     for no overlap: e1 <= s2 OR e2 <= s1; By Demorgan's law: => s2 < e1 AND s1 < e2
-    public boolean book(int start, int end) {
+    public boolean book1(int start, int end) {
         for(int[] event : events) {
             if(event[0] < end && start < event[1])
                 return false;
