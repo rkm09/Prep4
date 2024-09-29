@@ -1,7 +1,9 @@
 package leetdaily.hard;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class AllOne432 {
     public static void main(String[] args) {
@@ -10,45 +12,115 @@ public class AllOne432 {
     }
 }
 
+//  doubly LL; time: O(1), space: O(n)
+class Node {
+    int freq;
+    Node prev;
+    Node next;
+    Set<String> keys;
+    Node(int freq) {
+        this.freq = freq;
+        keys = new HashSet<>();
+    }
+}
+
 class AllOne {
-    Map<String, Integer> map;
+    Node head;
+    Node tail;
+    Map<String, Node> map;
 
     public AllOne() {
         map = new HashMap<>();
+        head = new Node(0);
+        tail = new Node(0);
+        head.next = tail;
+        tail.prev = head;
     }
 
     public void inc(String key) {
-        map.put(key, map.getOrDefault(key, 0) + 1);
+        if(map.containsKey(key)) {
+            Node node = map.get(key);
+            node.keys.remove(key);
+            int freq = node.freq;
+
+            Node nextNode = node.next;
+            if(nextNode == tail || nextNode.freq != freq + 1) {
+                Node newNode = new Node(freq + 1);
+                newNode.keys.add(key);
+                newNode.prev = node;
+                newNode.next = nextNode;
+                node.next = newNode;
+                nextNode.prev = newNode;
+                map.put(key, newNode);
+            } else {
+                nextNode.keys.add(key);
+                map.put(key, nextNode);
+            }
+            if(node.keys.isEmpty())
+               removeNode(node);
+        } else {
+            Node firstNode = head.next;
+            if(firstNode == tail || firstNode.freq > 1) {
+                Node newNode = new Node(1);
+                newNode.keys.add(key);
+                newNode.prev = head;
+                newNode.next = firstNode;
+                head.next = newNode;
+                firstNode.prev = newNode;
+                map.put(key, newNode);
+            } else {
+                firstNode.keys.add(key);
+                map.put(key, firstNode);
+            }
+        }
     }
 
     public void dec(String key) {
-        map.put(key, map.get(key) - 1);
-        if(map.get(key) == 0)
+        if(!map.containsKey(key))
+            return;
+
+        Node node = map.get(key);
+        node.keys.remove(key);
+        int freq = node.freq;
+
+        if(freq == 1)
             map.remove(key);
+        else {
+            Node prevNode = node.prev;
+            if(prevNode == head || prevNode.freq != freq - 1) {
+                Node newNode = new Node(freq - 1);
+                newNode.keys.add(key);
+                newNode.prev = prevNode;
+                newNode.next = node;
+                prevNode.next = newNode;
+                node.prev = newNode;
+                map.put(key, newNode);
+            } else {
+                prevNode.keys.add(key);
+                map.put(key, prevNode);
+            }
+        }
+        if(node.keys.isEmpty())
+            removeNode(node);
     }
 
     public String getMaxKey() {
-        int maxVal = Integer.MIN_VALUE;
-        String max = "";
-        for(String key : map.keySet()) {
-            if(map.get(key) > maxVal) {
-                maxVal = map.get(key);
-                max = key;
-            }
-        }
-        return max;
+        if(tail.prev == head)
+            return "";
+        return tail.prev.keys.iterator().next();
     }
 
     public String getMinKey() {
-        int minVal = Integer.MAX_VALUE;
-        String min = "";
-        for(String key : map.keySet()) {
-            if(map.get(key) < minVal) {
-                minVal = map.get(key);
-                min = key;
-            }
-        }
-        return min;
+        if(head.next == tail)
+            return "";
+        return head.next.keys.iterator().next();
+    }
+
+    private void removeNode(Node node) {
+        Node prevNode = node.prev;
+        Node nextNode = node.next;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
     }
 }
 
