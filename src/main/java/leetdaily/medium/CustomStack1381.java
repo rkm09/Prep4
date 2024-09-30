@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class CustomStack1381 {
 }
 
-// array; time: O(1), space: O(n)
+// array; time: O(1) for push, pop; O(k) for increment, space: O(n)
 class CustomStack {
     int[] stack;
     int index;
