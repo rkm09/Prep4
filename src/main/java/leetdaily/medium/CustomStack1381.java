@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class CustomStack1381 {
 }
 
+// array; time: O(1), space: O(n)
 class CustomStack {
     int[] stack;
     int index;
