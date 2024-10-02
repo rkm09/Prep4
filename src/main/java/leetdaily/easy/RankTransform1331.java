@@ -9,7 +9,7 @@ public class RankTransform1331 {
     }
 
 //    def; sort & map; time: O(nlogn), space: O(n)
-    public static int[] arrayRankTransform(int[] arr){
+    public static int[] arrayRankTransform(int[] arr) {
         Map<Integer, Integer> rank = new HashMap<>();
         int[] res = Arrays.copyOf(arr, arr.length);
         Arrays.sort(arr);
@@ -24,6 +24,35 @@ public class RankTransform1331 {
             res[i] = rank.get(res[i]);
         }
         return res;
+    }
+
+//    deduplication with tree set & map; time: O(nlogn), space: O(n)
+    public static int[] arrayRankTransform1(int[] arr) {
+        Map<Integer, Integer> numToRank = new HashMap<>();
+        TreeSet<Integer> numSet = new TreeSet<>();
+        for(int a : arr)
+            numSet.add(a);
+        int rank = 1;
+        for(int a : numSet)
+            numToRank.put(a, rank++);
+        for(int i = 0 ; i < arr.length ; i++)
+            arr[i] = numToRank.get(arr[i]);
+        return arr;
+    }
+
+//    ordered map;
+    public static int[] arrayRankTransform2(int[] arr) {
+        TreeMap<Integer, List<Integer>> numToIndices = new TreeMap<>();
+        for(int i = 0 ; i < arr.length ; i++)
+            numToIndices.computeIfAbsent(arr[i], a -> new ArrayList<>()).add(i);
+        int rank = 1;
+        for(int key  : numToIndices.keySet()) {
+            for(int idx : numToIndices.get(key)) {
+                arr[idx] = rank;
+            }
+            rank++;
+        }
+        return arr;
     }
 }
 
