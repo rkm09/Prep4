@@ -1,5 +1,9 @@
 package leetdaily.medium;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+
 public class SentenceSimilarityIII1813 {
     public static void main(String[] args) {
         String sentence1 = "Eating right now";
@@ -7,7 +11,7 @@ public class SentenceSimilarityIII1813 {
         System.out.println(areSentencesSimilar(sentence1, sentence2));
     }
 
-//    two pointer; time: O(m + n), space: O(m + n)
+//    two pointer; time: O(m + n), space: O(m + n) [faster]
     public static boolean areSentencesSimilar(String sentence1, String sentence2) {
         String[] s1arr = sentence1.split(" ");
         String[] s2arr = sentence2.split(" ");
@@ -26,6 +30,26 @@ public class SentenceSimilarityIII1813 {
             end2--;
         }
         return end1 < start;
+    }
+
+//    deque; time: O(m + n), space: O(m + n)
+    public static boolean areSentencesSimilar1(String sentence1, String sentence2) {
+        Deque<String> deque1 = new ArrayDeque<>(Arrays.asList(sentence1.split(" ")));
+        Deque<String> deque2 = new ArrayDeque<>(Arrays.asList(sentence2.split(" ")));
+//        compare the prefixes or beginnings of the strings
+        while(!deque1.isEmpty() && !deque2.isEmpty()
+        && deque1.peek().equals(deque2.peek())) {
+            deque1.poll();
+            deque2.poll();
+        }
+//        compare the suffixes or endings of the strings
+        while(!deque1.isEmpty() && !deque2.isEmpty()
+        && deque1.peekLast().equals(deque2.peekLast())) {
+            deque1.pollLast();
+            deque2.pollLast();
+        }
+//        note: "OR" not "AND"
+        return deque1.isEmpty() || deque2.isEmpty();
     }
 }
 
